@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "yekan";
+  src: url("../fonts/Yekan_Bakh_Regular.woff") format("woff");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "yekan-bold";
+  src: url("../fonts/Yekan_Bakh_Bold.woff") format("woff");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "dana-bold";
+  src: url("../fonts/dana-fat.woff") format("woff");
+}
