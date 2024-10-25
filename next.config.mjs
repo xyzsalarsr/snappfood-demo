@@ -11,6 +11,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.zoodfood.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

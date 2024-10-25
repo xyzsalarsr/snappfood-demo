@@ -30,6 +30,15 @@ interface ResponseData {
   }[];
 }
 
+interface DefaultResponseData {
+  data: {
+    result: {
+      data: { cuisines: Cuisine[]; restaurants: Restaurant[] };
+      title: string;
+    }[];
+  };
+}
+
 export default function Home() {
   const [data, setData] = useState<ResponseData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,8 +56,8 @@ export default function Home() {
       );
 
       if (response) {
-        const cuisinesData = response as unknown as ResponseData;
-        setData(cuisinesData);
+        const cuisinesData = response as unknown as DefaultResponseData;
+        setData(cuisinesData.data);
       }
     } catch (error) {
       console.error("Error:", error);
