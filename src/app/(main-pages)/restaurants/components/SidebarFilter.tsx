@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import useFilterUrl from "../hooks/useFilterUrl";
+import useFilterUrl from "@/hooks/useFilterUrl";
+import useApiUrlStore from "@/store/useApiUrlStore";
 
 const allFilters = {
   sortings: [
@@ -14,6 +15,7 @@ const allFilters = {
     { title: "پیشنهاد هفته", filterValue: "pick_of_the_week" },
   ],
   filters: [
+    { title: "همه", value: "" },
     { title: "اقتصادی", value: "economy_price" },
     { title: "متوسط", value: "average_price" },
     { title: "گران", value: "lux_price" },
@@ -21,6 +23,10 @@ const allFilters = {
 };
 
 const category = [
+  {
+    title: "همه",
+    catCode: null,
+  },
   {
     title: "ایرانی",
     catCode: 1,
@@ -44,8 +50,15 @@ const category = [
 ];
 
 const SidebarFilter: React.FC = () => {
-  const { sort, setSort, filter, setFilter, category: selectedCategory, setCategory } =
-    useFilterUrl();
+  const {
+    sort,
+    setSort,
+    filter,
+    setFilter,
+    category: selectedCategory,
+    setCategory,
+  } = useFilterUrl();
+  const { setPage } = useApiUrlStore();
 
   const handleCategoryClick = (value: number) => {
     setCategory({ value, sub: [] });
@@ -62,10 +75,13 @@ const SidebarFilter: React.FC = () => {
         <label className="block mb-2 font-bold text-gray-700">مرتب سازی</label>
         <select
           value={sort || ""}
-          onChange={(e) => setSort(e.target.value)}
+          onChange={(e) => {
+            setSort(e.target.value);
+            setPage(0);
+          }}
           className="w-full p-2 border rounded-md"
         >
-          <option value="">انتخاب کنید</option>
+          <option value="">به ترتیب پیش فرض</option>
           {allFilters.sortings.map((sorting) => (
             <option key={sorting.filterValue} value={sorting.filterValue}>
               {sorting.title}
@@ -81,7 +97,10 @@ const SidebarFilter: React.FC = () => {
           {allFilters.filters.map((f) => (
             <button
               key={f.value}
-              onClick={() => setFilter(f.value)}
+              onClick={() => {
+                setFilter(f.value);
+                setPage(0);
+              }}
               className={`px-4 py-2 rounded-md ${
                 filter === f.value ? "bg-blue-500 text-white" : "bg-gray-200"
               }`}
@@ -99,8 +118,11 @@ const SidebarFilter: React.FC = () => {
           {category.map((cat) => (
             <li key={cat.catCode}>
               <button
-                onClick={() => handleCategoryClick(cat.catCode)}
-                className={`w-full text-left px-4 py-2 rounded-md ${
+                onClick={() => {
+                  handleCategoryClick(cat.catCode);
+                  setPage(0);
+                }}
+                className={`w-full text-right px-4 py-2 rounded-md ${
                   selectedCategory.value === cat.catCode
                     ? "bg-blue-500 text-white"
                     : "bg-gray-100"
@@ -113,10 +135,11 @@ const SidebarFilter: React.FC = () => {
                   {cat.sub.map((sub) => (
                     <li key={sub.catCode}>
                       <button
-                        onClick={() =>
-                          handleSubCategoryClick(cat.catCode, [sub.catCode])
-                        }
-                        className={`w-full text-left px-4 py-2 rounded-md ${
+                        onClick={() => {
+                          handleSubCategoryClick(cat.catCode, [sub.catCode]);
+                          setPage(0);
+                        }}
+                        className={`w-full text-right px-4 py-2 rounded-md ${
                           selectedCategory.sub.includes(sub.catCode)
                             ? "bg-blue-400 text-white"
                             : "bg-gray-100"
@@ -132,7 +155,6 @@ const SidebarFilter: React.FC = () => {
           ))}
         </ul>
       </div>
-
     </div>
   );
 };
