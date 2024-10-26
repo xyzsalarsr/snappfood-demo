@@ -5,15 +5,6 @@ import useFilterUrl from "@/hooks/useFilterUrl";
 import useApiUrlStore from "@/store/useApiUrlStore";
 
 const allFilters = {
-  sortings: [
-    { title: "بالاترین امتیاز", filterValue: "max_rate" },
-    { title: "نزدیک ترین", filterValue: "nearest" },
-    { title: "جدیدترین", filterValue: "recent" },
-    { title: "ارزان ترین", filterValue: "least_expensive" },
-    { title: "عملکرد کلی", filterValue: "top_performance" },
-    { title: "گران ترین", filterValue: "most_expensive" },
-    { title: "پیشنهاد هفته", filterValue: "pick_of_the_week" },
-  ],
   filters: [
     { title: "همه", value: "" },
     { title: "اقتصادی", value: "economy_price" },
@@ -51,8 +42,6 @@ const category = [
 
 const SidebarFilter: React.FC = () => {
   const {
-    sort,
-    setSort,
     filter,
     setFilter,
     category: selectedCategory,
@@ -69,27 +58,7 @@ const SidebarFilter: React.FC = () => {
   };
 
   return (
-    <div className="w-64 p-4 border-r border-gray-200 h-screen bg-white">
-      {/* Sort Dropdown */}
-      <div className="mb-6">
-        <label className="block mb-2 font-bold text-gray-700">مرتب سازی</label>
-        <select
-          value={sort || ""}
-          onChange={(e) => {
-            setSort(e.target.value);
-            setPage(0);
-          }}
-          className="w-full p-2 border rounded-md"
-        >
-          <option value="">به ترتیب پیش فرض</option>
-          {allFilters.sortings.map((sorting) => (
-            <option key={sorting.filterValue} value={sorting.filterValue}>
-              {sorting.title}
-            </option>
-          ))}
-        </select>
-      </div>
-
+    <div className="w-full p-5 rounded-xl border border-gray-100 bg-gray-50/20 max-h-[75vh] overflow-x-hidden overflow-y-auto">
       {/* Filter Buttons */}
       <div className="mb-6">
         <label className="block mb-2 font-bold text-gray-700">فیلترها</label>

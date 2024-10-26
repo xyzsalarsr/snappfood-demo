@@ -33,7 +33,7 @@ const CategoriesSection: FC<CategoriesSectionProps> = ({ loading, data }) => {
                   key={i}
                   title={e.title}
                   imgSrc={e.icon}
-                  link={`/${e.id}`}
+                  link={`/restaurants?category_value=${e.id}`}
                 />
               ))
             ) : (

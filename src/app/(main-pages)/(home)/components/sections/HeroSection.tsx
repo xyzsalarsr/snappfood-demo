@@ -21,7 +21,7 @@ const HeroSection: FC = () => {
                 type="button"
                 className="bg-[#ff00a6] text-white px-4 py-2 rounded-xl hover:bg-[#a82b7c] transition-all ease-in-out duration-300"
               >
-                دلم غذا می خواد
+                 غذا می خواد
               </button>
             </Link>
           </div>

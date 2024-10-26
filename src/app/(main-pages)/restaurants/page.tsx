@@ -6,6 +6,7 @@ import RestaurantCard from "@/components/Cards/RestaurantCard";
 import SidebarFilter from "./components/SidebarFilter";
 import useApiUrlStore from "@/store/useApiUrlStore";
 import InfiniteScroll from "react-infinite-scroller";
+import { FaSortAmountDown } from "react-icons/fa";
 
 interface ApiResponse {
   render_type: number;
@@ -34,6 +35,16 @@ interface RestaurantData {
   id: string;
   code: string;
 }
+
+const sortings = [
+  { title: "بالاترین امتیاز", filterValue: "max_rate" },
+  { title: "نزدیک ترین", filterValue: "nearest" },
+  { title: "جدیدترین", filterValue: "recent" },
+  { title: "ارزان ترین", filterValue: "least_expensive" },
+  { title: "عملکرد کلی", filterValue: "top_performance" },
+  { title: "گران ترین", filterValue: "most_expensive" },
+  { title: "پیشنهاد هفته", filterValue: "pick_of_the_week" },
+];
 
 export default function Restaurants() {
   const [data, setData] = useState<FinalResultItem[] | null>(null);
@@ -100,7 +111,7 @@ export default function Restaurants() {
     <>
       <section className="mt-36">
         <div className="container">
-          <div className="grid grid-cols-12">
+          <div className="grid grid-cols-12 gap-5">
             <div className="col-span-3">
               <SidebarFilter />
             </div>
@@ -108,6 +119,37 @@ export default function Restaurants() {
               <p className="bg-pink-100 text-left p-5 rounded-lg mb-3">
                 {apiUrl}
               </p>
+
+              {/* <div className="mb-6">
+              <label className="block mb-2 font-bold text-gray-700">مرتب سازی</label>
+              <select
+                value={sort || ""}
+                onChange={(e) => {
+                  setSort(e.target.value);
+                  setPage(0);
+                }}
+                className="w-full p-2 border rounded-md"
+              >
+                <option value="">به ترتیب پیش فرض</option>
+                {allFilters.sortings.map((sorting) => (
+                  <option key={sorting.filterValue} value={sorting.filterValue}>
+                    {sorting.title}
+                  </option>
+                ))}
+              </select>
+            </div> */}
+
+              <div className="flex justify-start items-start gap-2 p-4 rounded-lg border border-gray-100 bg-gray-50/20 mb-5">
+                <FaSortAmountDown className="relative top-1" />
+                <ul className="flex justify-start items-center gap-3 mt-1">
+                  {sortings.map((e, i) => (
+                    <li key={i} value={e.filterValue}>
+                      {e.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div>
                 {!loading ? (
                   data !== null && data.length > 0 ? (
@@ -118,9 +160,11 @@ export default function Restaurants() {
                         hasMore={hasMore && (maxPage !== page ? true : false)}
                         className="grid grid-cols-3 gap-5"
                         loader={
-                          <div className="loader" key={0}>
-                            Loading ...
-                          </div>
+                          <>
+                            <div className="bg-zinc-300 h-[334px] w-full rounded-xl animate-pulse" />
+                            <div className="bg-zinc-300 h-[334px] w-full rounded-xl animate-pulse" />
+                            <div className="bg-zinc-300 h-[334px] w-full rounded-xl animate-pulse" />
+                          </>
                         }
                       >
                         {data !== null &&

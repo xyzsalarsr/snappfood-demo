@@ -58,7 +58,7 @@ const useFilterUrl = (): UseFilterUrlReturn => {
         ? `{"value":${category.value || 0},"sub":[${category.sub.join(",")}]}`
         : "{}";
 
-    return `desktop/vendors-list?lat=35.68925&long=51.3896&optionalClient=WEBSITE&client=WEBSITE&deviceType=WEBSITE&appVersion=8.1.1&UDID=af137255-9047-44da-81e2-ce0eada57e89&page=${page}&page_size=20&filters=${filtersPart}&category=${categoryPart}&query=&sp_alias=restaurant&city_name=tehran&superType=[1]&extra-filter=&section=SERVICES&vendor_title=&locale=fa`;
+    return `desktop/vendors-list?lat=35.68925&long=51.3896&optionalClient=WEBSITE&client=WEBSITE&deviceType=WEBSITE&appVersion=8.1.1&UDID=af137255-9047-44da-81e2-ce0eada57e89&page=${page}&page_size=21&filters=${filtersPart}&category=${categoryPart}&query=&sp_alias=restaurant&city_name=tehran&superType=[1]&extra-filter=&section=SERVICES&vendor_title=&locale=fa`;
   };
 
   useEffect(() => {
