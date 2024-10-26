@@ -32,6 +32,7 @@ interface RestaurantData {
   featured: string;
   rating: number;
   id: string;
+  code: string;
 }
 
 export default function Restaurants() {
@@ -132,7 +133,10 @@ export default function Restaurants() {
                               deliveryFee={e.data.deliveryFee}
                               logo={e.data.featured}
                               rating={e.data.rating}
-                              link={`/${e.data.id}`}
+                              link={`https://snappfood.ir/restaurant/menu/${e.data.title.replace(
+                                /[\s\(\)]+/g,
+                                "_"
+                              )}-r-${e.data.code}`}
                             />
                           ))}
                       </InfiniteScroll>

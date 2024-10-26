@@ -22,6 +22,7 @@ interface Restaurant {
   best_coupon: string;
   logo: string;
   rating: number;
+  vendorCode: string;
 }
 
 interface ResponseData {
@@ -59,6 +60,7 @@ export default function Home() {
       if (response) {
         const cuisinesData = response as unknown as DefaultResponseData;
         setData(cuisinesData.data);
+        console.log(response);
       }
     } catch (error) {
       console.error("Error:", error);

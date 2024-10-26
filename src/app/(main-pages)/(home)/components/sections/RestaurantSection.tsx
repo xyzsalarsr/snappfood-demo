@@ -15,6 +15,7 @@ interface Restaurant {
   best_coupon: string;
   logo: string;
   rating: number;
+  vendorCode: string;
 }
 
 interface RestaurantSectionProps {
@@ -67,7 +68,7 @@ const RestaurantSection: FC<RestaurantSectionProps> = ({
                           deliveryFee={e.deliveryFee}
                           logo={e.logo}
                           rating={e.rating}
-                          link={`/${e.id}`}
+                          link={`https://snappfood.ir/restaurant/menu/${e.title.replace(/[\s\(\)]+/g, '_')}-r-${e.vendorCode}`}
                         />
                       </div>
                     </SplideSlide>

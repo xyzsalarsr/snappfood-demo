@@ -53,10 +53,12 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
         <span className="flex justify-center items-center mt-3 gap-2 text-[13px] border border-gray-200 p-1 mx-auto bg-white w-9/12 rounded-full">
           <TbTruckDelivery />
           هزینه ارسال :{" "}
-          {deliveryFee !== 0 ? `${deliveryFee.toLocaleString()} تومان` : "رایگان"}
+          {deliveryFee !== 0
+            ? `${deliveryFee.toLocaleString()} تومان`
+            : "رایگان"}
         </span>
       </div>
-      <Link href={link} className="absolute inset-0 z-10" />
+      <Link href={link} className="absolute inset-0 z-10" target="_blank" />
     </div>
   );
 };
