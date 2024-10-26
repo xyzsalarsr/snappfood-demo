@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { handleGeneralReq } from "@/helpers/functions";
 import CategoriesSection from "./components/sections/CategoriesSection";
 import RestaurantSection from "./components/sections/RestaurantSection";
+import HeroSection from "./components/sections/HeroSection";
 
 interface Cuisine {
   id: number;
@@ -68,6 +69,8 @@ export default function Home() {
 
   return (
     <>
+      <HeroSection />
+
       <CategoriesSection
         data={data?.result[0].data?.cuisines || []}
         loading={loading}

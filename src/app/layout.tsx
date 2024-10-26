@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NextTopLoader color="#660033" />
+        <NextTopLoader color="#ff00a6" />
 
         {children}
       </body>
