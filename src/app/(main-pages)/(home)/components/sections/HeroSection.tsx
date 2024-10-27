@@ -7,7 +7,7 @@ const HeroSection: FC = () => {
     <section className="mt-28">
       <div className="container">
         <div className="items-center relative bg-pink-50 rounded-xl overflow-hidden grid lg:grid-cols-2 py-12 lg:py-24 px-20 min-h-[600px]">
-          <div className={""}>
+          <div className={"relative z-10"}>
             <h2 className="text-3xl mb-7">
               فقط <strong className="text-[#ff00a6]">یک کلیک</strong> تا غذات
               فاصله داری!
