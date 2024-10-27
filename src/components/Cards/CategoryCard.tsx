@@ -10,7 +10,7 @@ interface Props {
 
 const CategoryCard: FC<Props> = ({ title = "", imgSrc = "", link = "" }) => {
   return (
-    <div className="group shadow-lg rounded-xl relative overflow-hidden transition-all ease-in-out duration-200">
+    <div className="group inline-block shadow-lg rounded-xl relative overflow-hidden transition-all ease-in-out duration-200">
       <Image
         src={imgSrc}
         alt={title}

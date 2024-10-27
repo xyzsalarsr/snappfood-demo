@@ -6,9 +6,9 @@ const HeroSection: FC = () => {
   return (
     <section className="mt-28">
       <div className="container">
-        <div className="items-center relative bg-pink-50 rounded-xl overflow-hidden grid lg:grid-cols-2 py-12 lg:py-24 px-20 min-h-[600px]">
+        <div className="items-center relative bg-pink-50 rounded-xl overflow-hidden grid lg:grid-cols-2 py-12 lg:py-24 px-10 sm:px-20 min-h-[600px]">
           <div className={"relative z-10"}>
-            <h2 className="text-3xl mb-7">
+            <h2 className="text-2xl sm:text-3xl mb-7 leading-[50px]">
               فقط <strong className="text-[#ff00a6]">یک کلیک</strong> تا غذات
               فاصله داری!
             </h2>
@@ -31,7 +31,7 @@ const HeroSection: FC = () => {
               height={1000}
               src={"/img/landing-food.png"}
               alt="Img"
-              className={`w-full h-auto lg:w-[950px]  absolute -left-[300px] -bottom-[300px] rotating-element`}
+              className={`w-full h-auto lg:w-[950px]  absolute -left-[160px] -bottom-[160px] md:-left-[300px] md:-bottom-[300px] rotating-element`}
             />
           </div>
         </div>

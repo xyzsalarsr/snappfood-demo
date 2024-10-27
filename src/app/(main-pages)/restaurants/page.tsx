@@ -117,17 +117,17 @@ export default function Restaurants() {
     <>
       <section className="mt-36">
         <div className="container">
-          <div className="grid grid-cols-12 gap-5">
-            <div className="col-span-3">
-              <SidebarFilter />
+          <div className="lg:grid lg:grid-cols-12 gap-y-5 lg:gap-x-5">
+            <div className="lg:col-span-3">
+              <SidebarFilter sortings={sortings} />
             </div>
-            <div className="col-span-9">
-              <div className="flex justify-start items-start gap-2 p-4 rounded-lg border border-gray-100 bg-gray-50/20 mb-5">
+            <div className="lg:col-span-9">
+              <div className="hidden lg:flex justify-start items-start gap-2 p-4 rounded-lg border border-gray-100 bg-gray-50/20 mb-5">
                 <FaSortAmountDown className="relative top-[5px]" />
-                <span className="font-['yekan-bold'] relative top-1">
+                <span className="font-['yekan-bold'] relative top-1 text-[14px] xl:text-[16px]">
                   مرتب سازی:
                 </span>
-                <ul className="flex justify-start items-center gap-3 mt-1">
+                <ul className="flex justify-start text-[14px] xl:text-[16px] items-center gap-2 xl:gap-3 mt-1">
                   {sortings.map((e, i) => (
                     <li
                       key={i}
@@ -155,7 +155,7 @@ export default function Restaurants() {
                         pageStart={0}
                         loadMore={handleInfiniteLoadData}
                         hasMore={hasMore && (maxPage !== page ? true : false)}
-                        className="grid grid-cols-3 gap-5"
+                        className="grid md:grid-cols-2 xl:grid-cols-3 gap-5"
                         loader={
                           <>
                             <div className="bg-zinc-300 h-[334px] w-full rounded-xl animate-pulse" />
@@ -186,7 +186,7 @@ export default function Restaurants() {
                     <p className="text-center mt-10 font-['yekan-bold'] text-2xl">موردی <span className="text-[#ff00a6]">یافت</span> نشد :(</p>
                   )
                 ) : (
-                  <div className="grid grid-cols-3 gap-5">
+                  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
                     {skeletonArray.map((_, i) => (
                       <div
                         key={i}

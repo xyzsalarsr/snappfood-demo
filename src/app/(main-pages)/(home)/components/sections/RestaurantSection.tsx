@@ -22,17 +22,19 @@ interface RestaurantSectionProps {
   title: string;
   loading: boolean;
   data: Restaurant[];
+  background?: string;
 }
 
 const RestaurantSection: FC<RestaurantSectionProps> = ({
   title,
   loading,
   data,
+  background = "#fff",
 }) => {
   const skeletonArray = Array.from({ length: 4 });
 
   return (
-    <section className="pt-36">
+    <section className="py-16 lg:py-28" style={{ background }}>
       <div className="container">
         {!loading ? (
           <h3 className="text-xl block">{title}</h3>
@@ -51,8 +53,14 @@ const RestaurantSection: FC<RestaurantSectionProps> = ({
                     pagination: false,
                     arrows: true,
                     breakpoints: {
-                      992: {
+                      1400: {
                         perPage: 3,
+                      },
+                      992: {
+                        perPage: 2,
+                      },
+                      768: {
+                        perPage: 1,
                       },
                     },
                   }}
@@ -68,7 +76,10 @@ const RestaurantSection: FC<RestaurantSectionProps> = ({
                           deliveryFee={e.deliveryFee}
                           logo={e.logo}
                           rating={e.rating}
-                          link={`https://snappfood.ir/restaurant/menu/${e.title.replace(/[\s\(\)]+/g, '_')}-r-${e.vendorCode}`}
+                          link={`https://snappfood.ir/restaurant/menu/${e.title.replace(
+                            /[\s\(\)]+/g,
+                            "_"
+                          )}-r-${e.vendorCode}`}
                         />
                       </div>
                     </SplideSlide>

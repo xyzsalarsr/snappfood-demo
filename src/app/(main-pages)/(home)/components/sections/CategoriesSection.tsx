@@ -18,14 +18,14 @@ const CategoriesSection: FC<CategoriesSectionProps> = ({ loading, data }) => {
   const skeletonArray = Array.from({ length: 12 });
 
   return (
-    <section className="pt-36">
+    <section className="py-16 lg:py-28">
       <div className="container">
         {!loading ? (
           <h3 className="text-xl">دسته بندی ها</h3>
         ) : (
           <div className="bg-zinc-300 h-[28px] w-48 rounded-lg animate-pulse" />
         )}
-        <div className="grid grid-cols-6 gap-5 mt-6">
+        <div className="overflow-hidden overflow-x-auto space-x-3 space-x-reverse lg:space-x-0 whitespace-nowrap lg:grid lg:grid-cols-6 gap-5 mt-6">
           {!loading ? (
             data.length > 0 ? (
               data.map((e, i: number) => (
@@ -43,7 +43,7 @@ const CategoriesSection: FC<CategoriesSectionProps> = ({ loading, data }) => {
             skeletonArray.map((_, i) => (
               <div
                 key={i}
-                className="bg-zinc-300 h-[108px] w-full rounded-xl animate-pulse"
+                className="bg-zinc-300 h-[108px] w-full inline-block rounded-xl animate-pulse"
               ></div>
             ))
           )}

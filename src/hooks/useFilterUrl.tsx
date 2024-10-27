@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useApiUrlStore from "@/store/useApiUrlStore";
 
 interface Category {
@@ -19,33 +19,43 @@ interface UseFilterUrlReturn {
 }
 
 const useFilterUrl = (): UseFilterUrlReturn => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const { sort, setSort, page, setApiUrl } = useApiUrlStore();
 
-  const [isInitialized, setIsInitialized] = useState(false); 
-  const [filter, setFilter] = useState<string | null>(searchParams.get("filter"));
-  const [category, setCategory] = useState<Category>({
-    value: searchParams.get("category_value")
-      ? parseInt(searchParams.get("category_value")!)
-      : null,
-    sub: searchParams.get("sub")
-      ? searchParams.get("sub")!.split(",").map(Number)
-      : [],
-  });
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+  const router = useRouter();
+  const [filter, setFilter] = useState<string | null>(null);
+  const [category, setCategory] = useState<Category>({ value: null, sub: [] });
+  const [isInitialized, setIsInitialized] = useState(false);
 
+  // Initialize search params on the client
   useEffect(() => {
+    setSearchParams(new URLSearchParams(window.location.search));
+  }, []);
+
+  // Initialize state values from search params
+  useEffect(() => {
+    if (!searchParams) return;
+
+    const initialFilter = searchParams.get("filter");
     const initialSort = searchParams.get("sort");
+    const categoryValue = searchParams.get("category_value")
+      ? parseInt(searchParams.get("category_value")!)
+      : null;
+    const categorySub = searchParams.get("sub")
+      ? searchParams.get("sub")!.split(",").map(Number)
+      : [];
+
+    setFilter(initialFilter);
     setSort(initialSort);
-    setIsInitialized(true); 
+    setCategory({ value: categoryValue, sub: categorySub });
+    setIsInitialized(true);
   }, [searchParams, setSort]);
 
   const buildUrl = (): string => {
     const params = new URLSearchParams();
     if (sort) params.set("sort", sort);
     if (filter) params.set("filter", filter);
-    if (category.value !== null)
-      params.set("category_value", category.value.toString());
+    if (category.value !== null) params.set("category_value", category.value.toString());
     if (category.sub.length > 0) params.set("sub", category.sub.join(","));
     return `?${params.toString()}`;
   };
@@ -63,23 +73,15 @@ const useFilterUrl = (): UseFilterUrlReturn => {
   };
 
   useEffect(() => {
-    if (!isInitialized) return; 
+    if (!isInitialized) return;
 
     const newUrl = buildUrl();
     router.replace(newUrl);
 
     const newApiUrl = buildApiUrl();
     setApiUrl(newApiUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sort, filter, category, router, isInitialized]);
-
-  useEffect(() => {
-    if (!isInitialized) return; 
-
-    const newApiUrl = buildApiUrl();
-    setApiUrl(newApiUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, isInitialized]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sort, filter, category, page, router, isInitialized, setApiUrl]);
 
   return {
     sort,

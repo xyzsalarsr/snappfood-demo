@@ -91,6 +91,7 @@ export default function Home() {
         title={data?.result[4]?.title || ""}
         data={data?.result[4]?.data?.restaurants || []}
         loading={loading}
+        background={'#fdf2f8'}
       />
       <RestaurantSection
         title={data?.result[5]?.title || ""}
