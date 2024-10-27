@@ -122,29 +122,6 @@ export default function Restaurants() {
               <SidebarFilter />
             </div>
             <div className="col-span-9">
-              {/* <p className="bg-pink-100 text-left p-5 rounded-lg mb-3">
-                {apiUrl}
-              </p> */}
-
-              {/* <div className="mb-6">
-              <label className="block mb-2 font-bold text-gray-700">مرتب سازی</label>
-              <select
-                value={sort || ""}
-                onChange={(e) => {
-                  setSort(e.target.value);
-                  setPage(0);
-                }}
-                className="w-full p-2 border rounded-md"
-              >
-                <option value="">/option>
-                {allFilters.sortings.map((sorting) => (
-                  <option key={sorting.filterValue} value={sorting.filterValue}>
-                    {sorting.title}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-
               <div className="flex justify-start items-start gap-2 p-4 rounded-lg border border-gray-100 bg-gray-50/20 mb-5">
                 <FaSortAmountDown className="relative top-[5px]" />
                 <span className="font-['yekan-bold'] relative top-1">
@@ -206,7 +183,7 @@ export default function Restaurants() {
                       </InfiniteScroll>
                     </>
                   ) : (
-                    <p>موردی یافت نشد :(</p>
+                    <p className="text-center mt-10 font-['yekan-bold'] text-2xl">موردی <span className="text-[#ff00a6]">یافت</span> نشد :(</p>
                   )
                 ) : (
                   <div className="grid grid-cols-3 gap-5">
