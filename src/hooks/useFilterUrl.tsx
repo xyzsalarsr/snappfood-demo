@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import useApiUrlStore from "@/store/useApiUrlStore";
 
@@ -21,12 +21,10 @@ interface UseFilterUrlReturn {
 const useFilterUrl = (): UseFilterUrlReturn => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { page, setApiUrl } = useApiUrlStore();
+  const { sort, setSort, page, setApiUrl } = useApiUrlStore();
 
-  const [sort, setSort] = useState<string | null>(searchParams.get("sort"));
-  const [filter, setFilter] = useState<string | null>(
-    searchParams.get("filter")
-  );
+  const [isInitialized, setIsInitialized] = useState(false); 
+  const [filter, setFilter] = useState<string | null>(searchParams.get("filter"));
   const [category, setCategory] = useState<Category>({
     value: searchParams.get("category_value")
       ? parseInt(searchParams.get("category_value")!)
@@ -35,6 +33,12 @@ const useFilterUrl = (): UseFilterUrlReturn => {
       ? searchParams.get("sub")!.split(",").map(Number)
       : [],
   });
+
+  useEffect(() => {
+    const initialSort = searchParams.get("sort");
+    setSort(initialSort);
+    setIsInitialized(true); 
+  }, [searchParams, setSort]);
 
   const buildUrl = (): string => {
     const params = new URLSearchParams();
@@ -47,34 +51,35 @@ const useFilterUrl = (): UseFilterUrlReturn => {
   };
 
   const buildApiUrl = (): string => {
-    const filtersPart =
-      filter || sort
-        ? `{"filters":${filter ? `["${filter}"]` : "[]"},"sortings":${
-            sort ? `["${sort}"]` : "[]"
-          }}`
-        : "{}";
+    const filtersPart = `{"filters":${filter ? `["${filter}"]` : "null"},"sortings":${
+      sort ? `["${sort}"]` : "null"
+    }}`;
     const categoryPart =
       category.value !== null || category.sub.length > 0
-        ? `{"value":${category.value || 0},"sub":[${category.sub.join(",")}]}`
+        ? `{"value":${category.value || 0},"sub":[${category.sub.join(",")}]}` 
         : "{}";
 
     return `desktop/vendors-list?lat=35.68925&long=51.3896&optionalClient=WEBSITE&client=WEBSITE&deviceType=WEBSITE&appVersion=8.1.1&UDID=af137255-9047-44da-81e2-ce0eada57e89&page=${page}&page_size=21&filters=${filtersPart}&category=${categoryPart}&query=&sp_alias=restaurant&city_name=tehran&superType=[1]&extra-filter=&section=SERVICES&vendor_title=&locale=fa`;
   };
 
   useEffect(() => {
+    if (!isInitialized) return; 
+
     const newUrl = buildUrl();
     router.replace(newUrl);
 
     const newApiUrl = buildApiUrl();
     setApiUrl(newApiUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sort, filter, category, router]);
+  }, [sort, filter, category, router, isInitialized]);
 
   useEffect(() => {
+    if (!isInitialized) return; 
+
     const newApiUrl = buildApiUrl();
     setApiUrl(newApiUrl);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, isInitialized]);
 
   return {
     sort,

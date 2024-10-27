@@ -1,7 +1,7 @@
 "use client";
 
 import { handleGeneralReq } from "@/helpers/functions";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import RestaurantCard from "@/components/Cards/RestaurantCard";
 import SidebarFilter from "./components/SidebarFilter";
 import useApiUrlStore from "@/store/useApiUrlStore";
@@ -37,6 +37,7 @@ interface RestaurantData {
 }
 
 const sortings = [
+  { title: "به ترتیب پیش فرض", filterValue: null },
   { title: "بالاترین امتیاز", filterValue: "max_rate" },
   { title: "نزدیک ترین", filterValue: "nearest" },
   { title: "جدیدترین", filterValue: "recent" },
@@ -50,7 +51,7 @@ export default function Restaurants() {
   const [data, setData] = useState<FinalResultItem[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
-  const { page, setPage, apiUrl } = useApiUrlStore();
+  const { sort, setSort, page, setPage, apiUrl } = useApiUrlStore();
   const [maxPage, setMaxPage] = useState(0);
 
   useEffect(() => {
@@ -59,6 +60,11 @@ export default function Restaurants() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
+
+  useLayoutEffect(() => {
+    setPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getData = async () => {
     setData(null);
@@ -116,9 +122,9 @@ export default function Restaurants() {
               <SidebarFilter />
             </div>
             <div className="col-span-9">
-              <p className="bg-pink-100 text-left p-5 rounded-lg mb-3">
+              {/* <p className="bg-pink-100 text-left p-5 rounded-lg mb-3">
                 {apiUrl}
-              </p>
+              </p> */}
 
               {/* <div className="mb-6">
               <label className="block mb-2 font-bold text-gray-700">مرتب سازی</label>
@@ -130,7 +136,7 @@ export default function Restaurants() {
                 }}
                 className="w-full p-2 border rounded-md"
               >
-                <option value="">به ترتیب پیش فرض</option>
+                <option value="">/option>
                 {allFilters.sortings.map((sorting) => (
                   <option key={sorting.filterValue} value={sorting.filterValue}>
                     {sorting.title}
@@ -140,10 +146,24 @@ export default function Restaurants() {
             </div> */}
 
               <div className="flex justify-start items-start gap-2 p-4 rounded-lg border border-gray-100 bg-gray-50/20 mb-5">
-                <FaSortAmountDown className="relative top-1" />
+                <FaSortAmountDown className="relative top-[5px]" />
+                <span className="font-['yekan-bold'] relative top-1">
+                  مرتب سازی:
+                </span>
                 <ul className="flex justify-start items-center gap-3 mt-1">
                   {sortings.map((e, i) => (
-                    <li key={i} value={e.filterValue}>
+                    <li
+                      key={i}
+                      className={`${
+                        sort === e.filterValue
+                          ? "text-[#ff11ab]"
+                          : "text-zinc-700"
+                      } cursor-pointer`}
+                      onClick={() => {
+                        setSort(e.filterValue);
+                        setPage(0);
+                      }}
+                    >
                       {e.title}
                     </li>
                   ))}

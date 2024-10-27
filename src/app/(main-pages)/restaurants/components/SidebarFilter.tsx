@@ -6,7 +6,7 @@ import useApiUrlStore from "@/store/useApiUrlStore";
 
 const allFilters = {
   filters: [
-    { title: "همه", value: "" },
+    { title: "همه", value: null },
     { title: "اقتصادی", value: "economy_price" },
     { title: "متوسط", value: "average_price" },
     { title: "گران", value: "lux_price" },
