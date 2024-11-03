@@ -37,7 +37,7 @@ const RestaurantSection: FC<RestaurantSectionProps> = ({
     <section className="py-16 lg:py-28" style={{ background }}>
       <div className="container">
         {!loading ? (
-          <h3 className="text-xl block">{title}</h3>
+          <h3 className="text-xl block">{title || "(بدون عنوان)"}</h3>
         ) : (
           <div className="bg-zinc-300 h-[28px] w-48 rounded-lg animate-pulse" />
         )}
@@ -87,14 +87,14 @@ const RestaurantSection: FC<RestaurantSectionProps> = ({
                 </Splide>
               </>
             ) : (
-              <p>موردی یافت نشد :(</p>
+              <p className="bg-gray-100 px-8 p-16 text-center font-['yekan-bold'] text-xl col-span-12 rounded-lg">موردی یافت نشد :(</p>
             )
           ) : (
-            <div className="grid grid-cols-4 gap-5">
+            <div className="relative grid grid-cols-4 gap-5 min-h-[334px] xl:min-h-auto">
               {skeletonArray.map((_, i) => (
                 <div
                   key={i}
-                  className="bg-zinc-300 h-[334px] w-full rounded-xl animate-pulse"
+                  className="bg-zinc-300 absolute xl:static  inset-0 h-[334px] w-full rounded-xl animate-pulse"
                 />
               ))}
             </div>

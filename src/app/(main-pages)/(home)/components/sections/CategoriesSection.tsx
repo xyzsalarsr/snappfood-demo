@@ -7,6 +7,7 @@ interface Cuisine {
   id: number;
   title: string;
   icon: string;
+  sub: number | null;
 }
 
 interface CategoriesSectionProps {
@@ -33,11 +34,11 @@ const CategoriesSection: FC<CategoriesSectionProps> = ({ loading, data }) => {
                   key={i}
                   title={e.title}
                   imgSrc={e.icon}
-                  link={`/restaurants?category_value=${e.id}`}
+                  link={`/restaurants?${e.sub !== null ? `category_value=${e.sub}&sub=${e.id}`:`category_value=${e.id}`}`}
                 />
               ))
             ) : (
-              <p>موردی یافت نشد :(</p>
+              <p className="bg-gray-100 px-8 p-16 text-center font-['yekan-bold'] text-xl col-span-12 rounded-lg">موردی یافت نشد :(</p>
             )
           ) : (
             skeletonArray.map((_, i) => (
