@@ -20,7 +20,7 @@ const Header: FC = () => {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-4 left-0 right-0 w-full z-50">
+    <header className="fixed top-4 left-0 right-0 w-full z-[1000]">
       <div className="container">
         <div className="py-4 px-7 rounded-lg flex gap-3 justify-between items-center text-right bg-[#ffd3f0]/80 backdrop-blur">
           <ul className="flex items-center gap-4">

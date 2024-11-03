@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import "@/assets/css/index.css";
+import { CSPostHogProvider } from "./providers";
 
 export const metadata: Metadata = {
   title: "اسنپ فود | سفارش آنلاین غذا از تمامی رستوران ها و فست فودها",
@@ -17,11 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <NextTopLoader color="#ff00a6" />
+      <CSPostHogProvider>
+        <body>
+          <NextTopLoader color="#ff00a6" />
 
-        {children}
-      </body>
+          {children}
+        </body>
+      </CSPostHogProvider>
     </html>
   );
 }
